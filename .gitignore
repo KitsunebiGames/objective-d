@@ -19,3 +19,5 @@ objective-d-test-*
 .DS_Store
 
 out/
+
+dub.selections.json

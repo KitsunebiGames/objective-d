@@ -14,26 +14,10 @@ targetPath "out/"
 # Default configuration.
 configuration "static" {
     platforms "osx" "ios" "tvos" "watchos" "visionos"
-    libs "objc"
-    lflags "-all_load"
-
     targetType "library"
 }
 
-# Dynamic library
-configuration "dynamic" {
-    platforms "osx" "ios" "tvos" "watchos" "visionos"
-    libs "objc"
-    lflags "-all_load"
-
-    targetType "dynamicLibrary"
-}
-
-# Unit tests.
-configuration "unittest" {
-    platforms "osx" "ios" "tvos" "watchos" "visionos"
-    libs "objc"
-    lflags "-all_load"
-
-    dependency "silly" version="1.2.0-dev.2"
+# For platforms that don't support it.
+configuration "other_platforms" {
+    targetType "none"
 }
