@@ -1,0 +1,37 @@
+name "objective-d"
+description "Objective-D Runtime"
+authors "Inochi2D Project"
+copyright "Copyright © 2024, Inochi2D Project"
+license "BSD-2-Clause"
+
+# Only LDC is supported currently.
+toolchainRequirements gdc="no"
+
+targetPath "out/"
+
+# Default configuration.
+configuration "static" {
+    platforms "osx" "ios" "tvos" "watchos" "visionos"
+    libs "objc"
+    lflags "-all_load"
+
+    targetType "library"
+}
+
+# Dynamic library
+configuration "dynamic" {
+    platforms "osx" "ios" "tvos" "watchos" "visionos"
+    libs "objc"
+    lflags "-all_load"
+
+    targetType "dynamicLibrary"
+}
+
+# Unit tests.
+configuration "unittest" {
+    platforms "osx" "ios" "tvos" "watchos" "visionos"
+    libs "objc"
+    lflags "-all_load"
+
+    dependency "silly" version="1.2.0-dev.2"
+}
