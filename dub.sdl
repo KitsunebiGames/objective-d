@@ -7,6 +7,8 @@ license "BSD-2-Clause"
 # Only LDC is supported currently.
 toolchainRequirements gdc="no"
 
+dependency "numem" version="~>0.23.7"
+
 targetPath "out/"
 
 # Default configuration.
