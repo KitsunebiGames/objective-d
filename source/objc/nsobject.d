@@ -22,10 +22,21 @@ alias NSUInteger = size_t;
 */
 alias NSInteger = ptrdiff_t;
 
-extern(Objective-C)
+/**
+    Gets the name of an Objective-C compatible class.
+*/
+string classname(T)(T obj) if(is(T : NSObjectProtocol)) {
+    import core.stdc.string : strlen;
+    auto name = obj.self.name();
+    return cast(string)name[0..strlen(name)];
+}
+
+extern(Objective-C) extern:
+
 pragma(mangle, "NSObject")
-extern interface NSObjectProtocol {
+interface NSObjectProtocol {
 @nogc nothrow:
+public:
 
     /**
         Returns the class object for the receiver’s class.
@@ -40,7 +51,7 @@ extern interface NSObjectProtocol {
     /**
         Returns a Boolean value that indicates whether the receiver and a given object are equal.
     */
-    bool isEqual(inout(id) obj) @selector("isEqual:");
+    bool isEqual(inout(id) obj) inout @selector("isEqual:");
 
     /**
         Returns an integer that can be used as a table address in a hash table structure.
@@ -81,8 +92,7 @@ extern interface NSObjectProtocol {
 /**
     Base class of all Objective-C classes.
 */
-extern(Objective-C)
-extern class NSObject :  NSObjectProtocol {
+class NSObject :  NSObjectProtocol {
 @nogc nothrow:
 public:
 
@@ -99,7 +109,12 @@ public:
     /**
         Returns a Boolean value that indicates whether the receiver and a given object are equal.
     */
-    bool isEqual(inout(id) obj) @selector("isEqual:");
+    bool isEqual(inout(id) obj) inout @selector("isEqual:");
+
+    /**
+        Returns a Boolean value that indicates whether the receiver and a given object are equal.
+    */
+    bool isEqual(inout(NSObject) obj) inout @selector("isEqual:");
 
     /**
         Returns an integer that can be used as a table address in a hash table structure.
@@ -142,7 +157,6 @@ public:
     */
     void dealloc() @selector("dealloc");
     
-
     /**
         Increments the receiver’s reference count.
     */
@@ -162,11 +176,4 @@ public:
         Decrements the receiver’s reference count.
     */
     NSUInteger retainCount() @selector("retainCount");
-    /**
-        Implements equality comparison
-    */
-    
-    bool opEquals(T)(T other) if (is(T : NSObject)) {
-        return this.isEqual(other.self_);
-    }
 }
