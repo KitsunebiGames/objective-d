@@ -35,9 +35,6 @@ version(ARM) enum AppleIsARM = true;
 else version(AArch64) enum AppleIsARM = true;
 else enum AppleIsARM = false;
 
-// Gets whether the current compilation target is supported by Apple.
-enum AppleIsPlatformSupported = AppleOS && (AppleIsIntel || AppleIsARM);
-
 /**
     Mixin template which instructs LDC and other compatible D compilers
     to link against the specified frameworks.

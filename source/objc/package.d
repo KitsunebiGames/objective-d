@@ -13,4 +13,5 @@ module objc;
 public import objc.rt;
 public import objc.autorelease;
 public import objc.basetypes;
+public import objc.os;
 public import objc.block;
