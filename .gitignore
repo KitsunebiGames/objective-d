@@ -1,23 +1,12 @@
+# DUB Generated stuff
 .dub
-docs.json
-__dummy.html
+dub.selections.json
+
+# Auto-generated docs
 docs/
-/objective-d
-objective-d.so
-objective-d.dylib
-objective-d.dll
-objective-d.a
-objective-d.lib
-objective-d-test-*
-*.exe
-*.pdb
-*.o
-*.obj
-*.lst
+
+# Output directory.
+out/
 
 # No thanks, apple.
 .DS_Store
-
-out/
-
-dub.selections.json
