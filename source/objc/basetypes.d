@@ -99,3 +99,26 @@ alias NSInteger = ptrdiff_t;
     A number of seconds.
 */
 alias NSTimeInterval = double;
+
+// Declaration of base types.
+alias Boolean           = bool;
+alias UInt8             = ubyte;
+alias SInt8             = byte;
+alias UInt16            = ushort;
+alias SInt16            = short;
+alias UInt32            = uint;
+alias SInt32            = int;
+alias UInt64            = ulong;
+alias SInt64            = long;
+alias Int               = ptrdiff_t;
+alias UInt              = size_t;
+alias UniChar           = wchar;
+alias StringPtr         = const(char)*;
+alias Str255            = const(char)[255];
+alias ConstStr255Param  = const(char)*;
+alias OSErr             = UInt16;
+alias OSStatus          = UInt32;
+alias UTF32Char         = dchar;
+alias UTF16Char         = wchar;
+alias UTF8Char          = char;
+alias OSType            = uint;
