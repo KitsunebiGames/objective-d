@@ -1,6 +1,7 @@
 # Objective-D
 
-Objective-D provides essential bindings to Objective-C APIs.
+Objective-D provides essential bindings to Objective-C's Runtime API as well as as the
+Foundation framework.
 
 ## NOTE
 
