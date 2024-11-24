@@ -149,7 +149,7 @@ private:
 
 /*
  * The the block implementation specification is available here:
- * http://clang.llvm.org/docs/Block-ABI-Apple.html
+ * http://clang.llvm.org/docs/Block-ABI-html
  */
 
 // Block descriptor

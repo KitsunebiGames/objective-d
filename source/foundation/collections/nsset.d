@@ -6,11 +6,8 @@
 */
 
 /**
-    Objective-D
+    Bindings to NSSet
 */
-module objc;
-
-public import objc.rt;
-public import objc.autorelease;
-public import objc.basetypes;
-public import objc.block;
+module foundation.collections.nsset;
+import foundation;
+import objc;

@@ -15,6 +15,7 @@ targetPath "out/"
 configuration "static" {
     platforms "osx" "ios" "tvos" "watchos" "visionos"
     targetType "library"
+    lflags "-framework" "Foundation"
 }
 
 # For platforms that don't support it.
