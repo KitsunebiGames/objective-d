@@ -20,3 +20,7 @@ public import foundation.nszone;
 public import foundation.nsbundle;
 public import foundation.nsurl;
 public import foundation.nsobject;
+
+import nsproto = foundation.nsproto;
+
+alias NSObjectProtocol = nsproto.NSObject;
