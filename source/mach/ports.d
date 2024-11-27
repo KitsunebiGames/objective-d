@@ -11,7 +11,7 @@
 module mach.ports;
 import objc.os;
 
-extern(C):
+extern(C) nothrow @nogc:
 
 public import core.sys.darwin.mach.port;
 public import core.sys.darwin.mach.kern_return;
