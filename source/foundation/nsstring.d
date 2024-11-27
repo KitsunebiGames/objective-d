@@ -510,6 +510,12 @@ public:
     NSString init(const(char)* str) @selector("initWithUTF8String:");
 
     /**
+        Returns an initialized NSString object containing a given number of 
+        bytes from a given buffer of bytes interpreted in a given encoding.
+    */
+    NSString init(void* bytes, NSUInteger len, NSStringEncoding encoding) @selector("initWithBytes:length:encoding:");
+
+    /**
         A lowercase representation of the string.
     */
     @property NSString toLower() @selector("lowercaseString");
@@ -610,7 +616,7 @@ public:
         Returns a Boolean value that indicates whether a given string is equal 
         to the receiver using a literal Unicode-based comparison.
     */
-    bool opEquals(inout(NSString) other) inout @selector("isEqualToString:");
+    bool isEqual(inout(NSString) other) inout @selector("isEqualToString:");
     
     /**
         Encodes the receiver using a given archiver.
@@ -626,6 +632,14 @@ public:
         Returns a new instance that’s a copy of the receiver.
     */
     id copyWithZone(NSZone* zone) @selector("copyWithZone:");
+
+    /**
+        Converts to a D string.
+    */
+    extern(D)
+    final string toString() {
+        return cast(string)ptr[0..length];
+    }
 }
 
 /**
