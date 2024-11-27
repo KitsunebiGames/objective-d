@@ -159,7 +159,7 @@ public:
         have identical URL strings and base URLs.
     */
     extern(D)
-    bool opEquals(NSURL other) {
+    final bool opEquals(NSURL other) {
         return self.send!bool("isEqual:", other);
     }
 }

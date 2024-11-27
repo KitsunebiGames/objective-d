@@ -897,12 +897,22 @@ private {
     extern id objc_autorelease(id obj);
     extern bool objc_isUniquelyReferenced(id obj);
 
+    extern id objc_releaseAndReturn(id obj);
+    extern id objc_retainAutoreleaseAndReturn(id obj);
+    extern id objc_autoreleaseReturnValue(id obj);
+
     // Obtaining Class Definitions
     extern int objc_getClassList(Class* buffer, int bufferCount);
     extern Class* objc_copyClassList(uint* outCount);
     extern Class objc_lookUpClass(const(char)* name);
     extern id objc_getClass(const(char)* name);
     extern id objc_getMetaClass(const(char)* name);
+    extern id objc_retainAutoreleaseReturnValue(id obj);
+    extern id objc_retainAutoreleasedReturnValue(id obj);
+    extern id objc_claimAutoreleasedReturnValue(id obj);
+    extern id objc_unsafeClaimAutoreleasedReturnValue(id obj);
+    extern id objc_retainAutorelease(id obj);
+
 
     // Working with Instance Variables
     extern const(char)* ivar_getName(Ivar v);

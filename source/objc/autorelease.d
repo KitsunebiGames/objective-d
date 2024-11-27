@@ -17,6 +17,7 @@ import numem.core.memory.alloc : assumeNoGC;
 /**
     Creates an auto-release pool scope with the given delegate.
 */
+@trusted
 void autoreleasepool(scope void delegate() scope_) {
     auto scope_fn = assumeNoGC!(typeof(scope_))(scope_);
     
@@ -28,6 +29,24 @@ void autoreleasepool(scope void delegate() scope_) {
     objc_autoreleasePoolPop(ctx);
 }
 
+/**
+    Forcefully pushes an auto-release pool onto the auto-release pool stack.
+*/
+@system
+arpool_ctx autoreleasepool_push() {
+    return arpool_ctx(objc_autoreleasePoolPush());
+}
+
+/**
+    Forcefully pops an auto-release pool from the auto-release pool stack.
+*/
+@system
+void autoreleasepool_pop(arpool_ctx ctx) {
+    return objc_autoreleasePoolPop(ctx.ctxptr);
+}
+
+/// Opaque type for auto release pool contexts.
+struct arpool_ctx { void* ctxptr; alias ctxptr this; }
 
 private:
 extern(C) @nogc nothrow:
