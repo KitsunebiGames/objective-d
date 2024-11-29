@@ -57,6 +57,19 @@ public:
         The user info dictionary. 
     */
     @property NSDictionary!(NSErrorUserInfoKey, id) userInfo() const;
+
+    /**
+        A string containing the localized description of the error.
+    */
+    @property NSString localizedDescription() const;
+
+    /**
+        Converts to a D string.
+    */
+    extern(D)
+    final string toString() {
+        return localizedDescription.toString();
+    }
 }
 
 extern(C) @nogc nothrow:
