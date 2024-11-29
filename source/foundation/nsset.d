@@ -8,6 +8,6 @@
 /**
     Bindings to NSSet
 */
-module foundation.collections.nsset;
+module foundation.nsset;
 import foundation;
 import objc;

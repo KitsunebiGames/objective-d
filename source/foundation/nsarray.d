@@ -8,7 +8,7 @@
 /**
     Bindings to NSArray
 */
-module foundation.collections.nsarray;
+module foundation.nsarray;
 import foundation;
 import objc;
 

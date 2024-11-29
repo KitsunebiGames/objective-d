@@ -8,7 +8,7 @@
 /**
     Bindings to NSDictionary
 */
-module foundation.collections.nsdictionary;
+module foundation.nsdictionary;
 import foundation;
 import objc;
 

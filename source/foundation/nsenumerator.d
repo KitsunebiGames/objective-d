@@ -8,7 +8,7 @@
 /**
     Bindings to NSEnumerator
 */
-module foundation.collections.nsenumerator;
+module foundation.nsenumerator;
 import foundation;
 import objc;
 
