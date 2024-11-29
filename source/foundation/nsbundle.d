@@ -78,7 +78,7 @@ public:
     @property static NSBundle fromURL(NSURL url) @selector("bundleWithURL:");
 
     /**
-        Returns an NSBundle object that corresponds to the specified file URL.
+        Returns an NSBundle object that corresponds to the specified file path.
     */
     @property static NSBundle fromPath(NSString url) @selector("bundleWithPath:");
 
@@ -178,6 +178,11 @@ public:
     @property NSArray!NSNumber executableArchitectures() const @selector("executableArchitectures");
 
     /**
+        The bundle’s principal class.
+    */
+    @property Class principalClass() const;
+
+    /**
         Dynamically loads the bundle’s executable code into a running program, 
         if the code has not already been loaded.
     */
@@ -187,4 +192,17 @@ public:
         Unloads the code associated with the receiver. 
     */
     bool unload() @selector("unload");
+
+    /**
+        Returns the Class object for the specified name.
+    */
+    Class getClass(NSString name) @selector("classNamed:");
 }
+
+extern(C) nothrow @nogc:
+
+/**
+    A constant used as a key for the userInfo dictionary of a NSBundleDidLoadNotification notification that 
+    corresponds to an array of names of each class that was loaded.
+*/
+extern __gshared const NSString NSLoadedClasses;
