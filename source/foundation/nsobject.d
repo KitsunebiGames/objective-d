@@ -245,3 +245,27 @@ string classname(T)(T obj) if(is(T : NSObjectProtocol)) {
     auto name = obj.self.name();
     return cast(string)name[0..strlen(name)];
 }
+
+/**
+    Retains a single reference for `value` and returns it.
+*/
+auto ref inout(T) retained(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
+    value.retain();
+    return value;
+}
+
+/**
+    Releases a single reference for `value` and returns it.
+*/
+auto ref inout(T) released(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
+    value.release();
+    return value;
+}
+
+/**
+    Queues `value` up for an auto-release and returns it.
+*/
+auto ref inout(T) autoreleased(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
+    value.autorelease();
+    return value;
+}
