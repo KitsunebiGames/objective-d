@@ -1,6 +1,7 @@
 /*
-    Copyright © 2024, Inochi2D Project
-    Distributed under the 2-Clause BSD License, see LICENSE file.
+    Copyright © 2024, Kitsunebi Games EMV
+    Distributed under the Boost Software License, Version 1.0, 
+    see LICENSE file.
     
     Authors: Luna Nielsen
 */
@@ -128,7 +129,6 @@ public:
         Returns the object located at the specified index.
     */
     T objectAtIndex(NSUInteger index) @selector("objectAtIndex:");
-    alias opIndex = objectAtIndex;
 
     /**
         Returns the lowest index whose corresponding array 
@@ -137,7 +137,20 @@ public:
         Returns -1 if not found.
     */
     NSInteger indexOfObject(T obj) @selector("indexOfObject:");
-    alias find = indexOfObject;
+
+    /**
+        Returns by reference a C array of objects over which the sender should iterate, 
+        and as the return value the number of objects in the array.
+    */
+    NSUInteger countByEnumeratingWithState(NSFastEnumerationState* state, id* stackbuf, NSUInteger len) @selector("countByEnumeratingWithState:objects:count:");
+
+    /**
+        Gets the index of the provided object.
+    
+        Returns -1 if not found.
+    */
+    extern(D)
+    ptrdiff_t find(T obj) => indexOfObject(obj);
 
     /**
         Allows iterating over the array.
@@ -145,7 +158,6 @@ public:
     extern(D)
     final
     int opApply(scope iter_func!T dg) {
-        
         auto ngc_dg = assumeNothrowNoGC!(iter_func!T)(dg);
         foreach (i; 0..length) {
             int result = ngc_dg(this[i]);
@@ -161,7 +173,6 @@ public:
     extern(D)
     final
     int opApplyReverse(scope iter_func!T dg) {
-
         auto ngc_dg = assumeNothrowNoGC!(iter_func!T)(dg);
         foreach (i; 0..length) {
             int result = ngc_dg(this[i]);
@@ -177,7 +188,6 @@ public:
     extern(D)
     final
     int opApply(scope iter_i_func!T dg) {
-
         auto ngc_dg = assumeNothrowNoGC!(iter_i_func!T)(dg);
         foreach (i; 0..length) {
             int result = ngc_dg(i, this[i]);
@@ -193,7 +203,6 @@ public:
     extern(D)
     final
     int opApplyReverse(scope iter_i_func!T dg) {
-
         auto ngc_dg = assumeNothrowNoGC!(iter_i_func!T)(dg);
         foreach (i; 0..length) {
             int result = ngc_dg(i, this[i]);
@@ -203,12 +212,12 @@ public:
         return 0;
     }
     
-    /**
-        Returns by reference a C array of objects over which the sender should iterate, 
-        and as the return value the number of objects in the array.
-    */
-    NSUInteger countByEnumeratingWithState(NSFastEnumerationState* state, id* stackbuf, NSUInteger len) @selector("countByEnumeratingWithState:objects:count:");
-
+    /// Allows indexing the array using D semantics.
+    extern(D)
+    final
+    auto opIndex(size_t idx) {
+        return this.objectAtIndex(idx);
+    }
 
     /// For D compat.
     alias length = count;
@@ -242,6 +251,8 @@ public:
     /**
         Empties the array of all its elements.
     */
+    extern(D)
+    final
     void clear() {
         this.message!void("removeAllObjects");
     }
@@ -249,6 +260,8 @@ public:
     /**
         Removes the first object in the array 
     */
+    extern(D)
+    final
     void popFront() {
         if (length > 0) this.remove(0);
     }
@@ -276,6 +289,8 @@ public:
     /**
         Sets the receiving array’s elements to those in another given array.
     */
+    extern(D)
+    final
     void opAssign(NSArray other) {
         this.message!void("setArray:", other);
     }
@@ -283,6 +298,8 @@ public:
     /**
         Inserts a given object at the end of the array.
     */
+    extern(D)
+    final
     void opOpAssign(string op = "~")(DRTBindable value) {
         this.message!void("addObject:", value);
     }
@@ -290,6 +307,8 @@ public:
     /**
         Inserts a given object into the array’s contents at a given index.
     */
+    extern(D)
+    final
     void opIndexAssign(DRTBindable value, size_t index) {
         this.message!void("insertObject:atIndex:", value, index);
     }

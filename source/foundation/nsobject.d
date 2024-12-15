@@ -1,6 +1,7 @@
 /*
-    Copyright © 2024, Inochi2D Project
-    Distributed under the 2-Clause BSD License, see LICENSE file.
+    Copyright © 2024, Kitsunebi Games EMV
+    Distributed under the Boost Software License, Version 1.0, 
+    see LICENSE file.
     
     Authors: Luna Nielsen
 */
@@ -13,7 +14,6 @@ import foundation;
 import objc.basetypes;
 import objc;
 import core.attribute : selector, optional;
-
 
 /**
     Base class of all Objective-C classes.
@@ -234,7 +234,8 @@ public:
     Gets whether the given type is an Objective-C class instance.
 */
 enum isObjcClassInstance(T) =
-    is(T : NSObjectProtocol) ||
+    ((is(T == class) || is(T == interface)) && 
+        __traits(getLinkage, T) == "Objective-C") ||
     is(T : id);
 
 /**
@@ -250,7 +251,7 @@ string classname(T)(T obj) if(is(T : NSObjectProtocol)) {
     Retains a single reference for `value` and returns it.
 */
 auto ref inout(T) retained(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
-    value.retain();
+    (cast(T)value).retain();
     return value;
 }
 
@@ -258,7 +259,7 @@ auto ref inout(T) retained(T)(auto ref inout(T) value) if (isObjcClassInstance!T
     Releases a single reference for `value` and returns it.
 */
 auto ref inout(T) released(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
-    value.release();
+    (cast(T)value).release();
     return value;
 }
 
@@ -266,6 +267,6 @@ auto ref inout(T) released(T)(auto ref inout(T) value) if (isObjcClassInstance!T
     Queues `value` up for an auto-release and returns it.
 */
 auto ref inout(T) autoreleased(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
-    value.autorelease();
+    (cast(T)value).autorelease();
     return value;
 }

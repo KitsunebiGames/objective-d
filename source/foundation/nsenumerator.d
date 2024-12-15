@@ -1,6 +1,7 @@
 /*
-    Copyright © 2024, Inochi2D Project
-    Distributed under the 2-Clause BSD License, see LICENSE file.
+    Copyright © 2024, Kitsunebi Games EMV
+    Distributed under the Boost Software License, Version 1.0, 
+    see LICENSE file.
     
     Authors: Luna Nielsen
 */
