@@ -11,8 +11,7 @@
 module objc.autorelease;
 import objc.rt;
 
-import numem.core.memory;
-import numem.core.memory.alloc : assumeNoGC;
+import objc.utils;
 
 /**
     Creates an auto-release pool scope with the given delegate.

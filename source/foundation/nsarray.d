@@ -10,6 +10,7 @@
 */
 module foundation.nsarray;
 import foundation;
+import objc.utils;
 import objc;
 
 import core.attribute : selector, optional;
@@ -144,8 +145,7 @@ public:
     extern(D)
     final
     int opApply(scope iter_func!T dg) {
-        import numem.core.memory.alloc : assumeNothrowNoGC;
-
+        
         auto ngc_dg = assumeNothrowNoGC!(iter_func!T)(dg);
         foreach (i; 0..length) {
             int result = ngc_dg(this[i]);
@@ -161,7 +161,6 @@ public:
     extern(D)
     final
     int opApplyReverse(scope iter_func!T dg) {
-        import numem.core.memory.alloc : assumeNothrowNoGC;
 
         auto ngc_dg = assumeNothrowNoGC!(iter_func!T)(dg);
         foreach (i; 0..length) {
@@ -178,7 +177,6 @@ public:
     extern(D)
     final
     int opApply(scope iter_i_func!T dg) {
-        import numem.core.memory.alloc : assumeNothrowNoGC;
 
         auto ngc_dg = assumeNothrowNoGC!(iter_i_func!T)(dg);
         foreach (i; 0..length) {
@@ -195,7 +193,6 @@ public:
     extern(D)
     final
     int opApplyReverse(scope iter_i_func!T dg) {
-        import numem.core.memory.alloc : assumeNothrowNoGC;
 
         auto ngc_dg = assumeNothrowNoGC!(iter_i_func!T)(dg);
         foreach (i; 0..length) {

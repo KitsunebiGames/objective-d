@@ -10,6 +10,7 @@
 */
 module foundation.nsstring;
 import foundation;
+import objc.utils;
 import objc;
 
 import core.attribute : selector, optional;
