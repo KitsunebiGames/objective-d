@@ -7,6 +7,8 @@ name: Unit Tests
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -20,8 +22,8 @@ jobs:
         arch: [x86_64, arm64]
         dc: [ldc-beta, dmd-master]
         build: [debug, release]
-      exclude:
-        - { dc: dmd-master, arch: arm64 }
+        exclude:
+          - { dc: dmd-master, arch: arm64 }
 
     runs-on: ${{ matrix.os }}
     steps:
