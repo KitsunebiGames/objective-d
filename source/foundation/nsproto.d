@@ -13,7 +13,11 @@ module foundation.nsproto;
 import foundation;
 import objc.basetypes;
 import objc.rt;
+
 import core.attribute : selector, optional;
+
+nothrow @nogc:
+version(D_ObjectiveC):
 
 /**
     The base protocol all Objective-C protocols should follow.

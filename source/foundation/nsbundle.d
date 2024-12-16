@@ -15,8 +15,8 @@ import objc;
 
 import core.attribute : selector, optional;
 
-
 nothrow @nogc:
+version(D_ObjectiveC):
 
 /**
     Constants that describe the CPU types that a bundle’s executable code supports.

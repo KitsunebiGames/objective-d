@@ -15,6 +15,9 @@ import objc;
 
 import core.attribute : selector, optional;
 
+nothrow @nogc:
+version(D_ObjectiveC):
+
 /**
     A protocol that objects adopt to provide functional copies of themselves.
 */

@@ -19,6 +19,9 @@ import core.attribute : selector, optional;
 private alias iter_func(T) = int delegate(T);
 private alias iter_i_func(T) = int delegate(size_t, T);
 
+nothrow @nogc:
+version(D_ObjectiveC):
+
 /**
     A static ordered collection of objects.
 */
@@ -32,27 +35,31 @@ public:
     /**
         Creates and returns an empty array.
     */
-    static NSArray!T array() @selector("array");
+    static NSArray!T create() @selector("array");
 
     /**
         Creates and returns an array containing the objects in another given array.
     */
-    static NSArray!T array(ref NSArray!T array) @selector("arrayWithArray:");
+    static NSArray!T create(ref NSArray!T array) @selector("arrayWithArray:");
 
     /**
         Creates and returns an array containing a given object.
     */
-    static NSArray!T array(T object) @selector("arrayWithObject:");
+    static NSArray!T create(T object) @selector("arrayWithObject:");
 
     /**
         Creates and returns an array containing the objects in the argument list.
     */
-    static NSArray!T array(T firstObject, ...) @selector("arrayWithObjects:");
+    static NSArray!T create(T* objects, NSUInteger count) @selector("arrayWithObjects:count:");
 
     /**
-        Creates and returns an array containing the objects in the argument list.
+        Allows creating NSArrays from a D slice.
     */
-    static NSArray!T array(T* objects, NSUInteger count) @selector("arrayWithObjects:count:");
+    extern(D)
+    final // @suppress(dscanner.useless.final)
+    static NSArray!T create(T[] objects) {
+        return typeof(this).create(objects.ptr, objects.length);
+    }
 
     /**
         Allocates a new NSArray
@@ -159,6 +166,7 @@ public:
     final
     int opApply(scope iter_func!T dg) {
         auto ngc_dg = assumeNothrowNoGC!(iter_func!T)(dg);
+
         foreach (i; 0..length) {
             int result = ngc_dg(this[i]);
             if (result)
@@ -222,12 +230,6 @@ public:
     /// For D compat.
     alias length = count;
     alias opDollar = length;
-}
-
-unittest {
-    NSString myString = NSString.alloc.init("");
-    NSArray!NSString myArray = NSArray!(NSString).array();
-    
 }
 
 /**
@@ -312,4 +314,38 @@ public:
     void opIndexAssign(DRTBindable value, size_t index) {
         this.message!void("insertObject:atIndex:", value, index);
     }
+}
+
+@("NSArray: multiple template instantiation")
+unittest {
+    NSArray!NSObject objarray;
+    NSArray!NSString strarray;
+}
+
+@("NSArray: create and index")
+unittest {
+    NSString myString = NSString.create("A");
+    NSString myString2 = NSString.create("B");
+    NSString[2] darray = [myString, myString2];
+
+    auto myArray = NSArray!(NSString).create(darray);
+
+    foreach(i; 0..myArray.length) {
+        assert(myArray[i].isEqual(darray[i]));
+    }
+}
+
+@("NSArray: foreach")
+unittest {
+    NSString myString = NSString.create("A");
+    NSString myString2 = NSString.create("B");
+    NSString[2] darray = [myString, myString2];
+
+    auto myArray = NSArray!(NSString).create(darray);
+
+    foreach(item; myArray)
+        assert(item !is null);
+
+    foreach_reverse(item; myArray)
+        assert(item !is null);
 }

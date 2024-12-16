@@ -15,6 +15,9 @@ import objc;
 
 import core.attribute : selector, optional;
 
+nothrow @nogc:
+version(D_ObjectiveC):
+
 /**
     A simple container for a single C or Objective-C data item.
 */
@@ -208,12 +211,4 @@ public:
         Gets whether this number is equal to another.
     */
     bool isEqual(NSNumber other) @selector("isEqualToNumber:");
-
-    /**
-        Implements equality comparison
-    */
-    extern(D)
-    bool opEquals(T)(T other) if (is(T : NSNumber)) {
-        return this.isEqual(other.self_);
-    }
 }

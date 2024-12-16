@@ -15,6 +15,9 @@ import objc.basetypes;
 import objc;
 import core.attribute : selector, optional;
 
+nothrow @nogc:
+version(D_ObjectiveC):
+
 /**
     Base class of all Objective-C classes.
 */
@@ -270,3 +273,4 @@ auto ref inout(T) autoreleased(T)(auto ref inout(T) value) if (isObjcClassInstan
     (cast(T)value).autorelease();
     return value;
 }
+

@@ -16,6 +16,9 @@ import objc;
 
 import core.attribute : selector, optional;
 
+nothrow @nogc:
+version(D_ObjectiveC):
+
 /**
     The following constants are provided by NSString as 
     possible string encodings.
@@ -639,7 +642,8 @@ public:
         Converts to a D string.
     */
     extern(D)
-    final string toString() {
+    final // @suppress(dscanner.useless.final)
+    string toString() {
         return cast(string)ptr[0..length];
     }
 }

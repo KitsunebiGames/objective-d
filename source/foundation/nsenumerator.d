@@ -14,8 +14,10 @@ import foundation;
 import objc;
 
 import core.attribute : selector, optional;
-
 import core.stdc.config : c_ulong;
+
+nothrow @nogc:
+version(D_ObjectiveC):
 
 /**
     This defines the structure used as contextual information 

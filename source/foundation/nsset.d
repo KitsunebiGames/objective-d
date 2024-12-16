@@ -12,3 +12,8 @@
 module foundation.nsset;
 import foundation;
 import objc;
+
+
+
+nothrow @nogc:
+version(D_ObjectiveC):

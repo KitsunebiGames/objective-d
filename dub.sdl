@@ -16,6 +16,13 @@ configuration "static" {
     lflags "-framework" "Foundation" "-all_load"
 }
 
+configuration "unittest" {
+    platforms "osx"
+
+    lflags "-framework" "Foundation" "-all_load"
+    dependency "silly" version="~>1.0"
+}
+
 # For platforms that don't support it.
 configuration "other_platforms" {
     targetType "none"

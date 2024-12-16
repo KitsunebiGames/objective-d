@@ -15,6 +15,8 @@ import objc;
 
 import core.attribute : selector, optional;
 
+nothrow @nogc:
+version(D_ObjectiveC):
 
 /**
     NSDictionary

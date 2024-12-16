@@ -15,6 +15,9 @@ import objc;
 
 import core.attribute : selector, optional;
 
+nothrow @nogc:
+version(D_ObjectiveC):
+
 /**
     A protocol that enables an object to be encoded and 
     decoded for archiving and distribution.

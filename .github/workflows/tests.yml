@@ -1,0 +1,37 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+name: Unit Tests
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: 'Build & Test'
+    strategy:
+      matrix:
+        os: [macOS-latest]
+        arch: [x86_64, arm64]
+        dc: [ldc-beta, dmd-master]
+        build: [debug, release]
+      exclude:
+        - { dc: dmd-master, arch: arm64 }
+
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install compiler
+      uses: dlang-community/setup-dlang@v1.4.0
+      with:
+        compiler: ${{ matrix.dc }}
+
+    - name: 'Build and test with ${{ matrix.os }} ${{ matrix.dc }} (${{ matrix.build }})' 
+      run: |
+        dub test --config=unittest --build=${{ matrix.build }}
