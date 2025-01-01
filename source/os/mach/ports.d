@@ -9,17 +9,29 @@
 /**
     Mach Ports bindings
 */
-module mach.ports;
+module os.mach.ports;
 import objc.os;
 
-extern(C) nothrow @nogc:
+version (OSX)
+    version = Darwin;
+else version (iOS)
+    version = Darwin;
+else version (TVOS)
+    version = Darwin;
+else version (WatchOS)
+    version = Darwin;
 
+version (Darwin):
+extern (C) nothrow @nogc:
+
+// Contains definitions for mach_port_t and natural_t.
 public import core.sys.darwin.mach.port;
+
 public import core.sys.darwin.mach.kern_return;
 public import core.sys.darwin.mach.semaphore;
 
 /// IPC Space
-struct ipc_space;
+struct ipc_space; // @suppress(dscanner.style.phobos_naming_convention)
 alias ipc_space_t = ipc_space*;
 
 /**
