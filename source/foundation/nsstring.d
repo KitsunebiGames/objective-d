@@ -1,22 +1,16 @@
-/*
-    Copyright © 2024, Kitsunebi Games EMV
-    Distributed under the Boost Software License, Version 1.0, 
-    see LICENSE file.
-    
-    Authors: Luna Nielsen
-*/
-
 /**
-    Bindings to NSString
+    NSString
+
+    Copyright: Copyright © 2024-2025, Kitsunebi Games EMV
+    License:   $(LINK2 http://www.boost.org/LICENSE_1_0.txt, Boost License 1.0)
+    Authors:   Luna Nielsen
 */
 module foundation.nsstring;
 import foundation;
-import objc.utils;
 import objc;
 
 import core.attribute : selector, optional;
 
-nothrow @nogc:
 version(D_ObjectiveC):
 
 /**
@@ -460,6 +454,7 @@ enum NSStringEncoding : NSUInteger {
 /**
     A block which enumerates all the lines in the string.
 */
+@nogc nothrow
 alias NSStringEnumerator = Block!(void, NSString, bool*);
 
 /**
@@ -469,6 +464,7 @@ extern(Objective-C)
 extern class NSString : NSObject, NSCopying, NSMutableCopying, NSSecureCoding {
 @nogc nothrow:
 public:
+    alias toString this;
 
     /**
         Returns an empty string.
@@ -476,8 +472,8 @@ public:
     static NSString create() @selector("string");
 
     /**
-        Returns a string created by copying the data from 
-        a given C array of UTF8-encoded bytes.
+        Returns a string created by copying the data from a given 
+        C array of UTF8-encoded bytes.
     */
     static NSString create(const(char)* str) @selector("stringWithUTF8String:");
 
@@ -488,20 +484,25 @@ public:
     static NSString create(const(char)* str, NSStringEncoding encoding) @selector("stringWithCString:encoding:");
 
     /**
-        Returns a string created by copying the characters from another given string.
+        Returns a string created by copying the characters from 
+        another given string.
     */
     static NSString create(ref NSString other) @selector("stringWithString:");
+
+    /**
+        Returns a string created by copying the data from a given 
+        D string.
+    */
+    extern(D)
+    final // @suppress(dscanner.useless.final)
+    static NSString create(string str) {
+        return NSString.alloc.init(cast(void*)str.ptr, str.length, NSStringEncoding.UTF8);
+    }
 
     /**
         Allocates a new NSString
     */
     override static NSString alloc() @selector("alloc");
-
-    /**
-        Returns a string created by copying the data from a 
-        given C array of UTF8-encoded bytes.
-    */
-    static NSString fromUTF8String(const(char)* str) @selector("stringWithUTF8String:");
 
     /**
         Returns an initialized NSString object.
@@ -643,7 +644,7 @@ public:
     */
     extern(D)
     final // @suppress(dscanner.useless.final)
-    string toString() {
+    string toString() const {
         return cast(string)ptr[0..length];
     }
 }
@@ -655,6 +656,7 @@ extern(Objective-C)
 extern class NSMutableString : NSString {
 @nogc nothrow:
 public:
+    alias toChars this;
 
     /**
         Appends the given string to this string.
@@ -665,4 +667,22 @@ public:
         Inserts a string into this string at the specified index.
     */
     void insert(NSString other, NSUInteger index) @selector("insertString:atIndex:");
+
+    /**
+        Converts to a D string.
+    */
+    extern(D)
+    final // @suppress(dscanner.useless.final)
+    char[] toChars() const @nogc {
+        return cast(char[])ptr[0..length];
+    }
+}
+
+@("NSString as string")
+unittest {
+    import std.stdio : writeln;
+    NSString myString = NSString.create("Hello, world!");
+    assert(myString == "Hello, world!");
+
+    myString.release();
 }

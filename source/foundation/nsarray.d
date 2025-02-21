@@ -11,13 +11,23 @@
 */
 module foundation.nsarray;
 import foundation;
-import objc.utils;
 import objc;
 
 import core.attribute : selector, optional;
+import numem.core.exception;
 
 private alias iter_func(T) = int delegate(T);
 private alias iter_i_func(T) = int delegate(size_t, T);
+
+private
+int iter_func_t(T)(T item, scope iter_func!T dg) @nogc {
+    return assumeNoThrowNoGC(dg, item);
+}  
+
+private
+int iter_i_func_t(T)(size_t idx, T item, scope iter_i_func!T dg) @nogc {
+    return assumeNoThrowNoGC(dg, idx, item);
+}  
 
 nothrow @nogc:
 version(D_ObjectiveC):
@@ -58,7 +68,7 @@ public:
     extern(D)
     final // @suppress(dscanner.useless.final)
     static NSArray!T create(T[] objects) {
-        return typeof(this).create(objects.ptr, objects.length);
+        return NSArray!T.create(objects.ptr, objects.length);
     }
 
     /**
@@ -165,10 +175,8 @@ public:
     extern(D)
     final
     int opApply(scope iter_func!T dg) {
-        auto ngc_dg = assumeNothrowNoGC!(iter_func!T)(dg);
-
         foreach (i; 0..length) {
-            int result = ngc_dg(this[i]);
+            int result = iter_func_t!T(this[i], dg);
             if (result)
                 return result;
         }
@@ -181,9 +189,8 @@ public:
     extern(D)
     final
     int opApplyReverse(scope iter_func!T dg) {
-        auto ngc_dg = assumeNothrowNoGC!(iter_func!T)(dg);
         foreach (i; 0..length) {
-            int result = ngc_dg(this[i]);
+            int result = iter_func_t!T(this[i], dg);
             if (result)
                 return result;
         }
@@ -196,9 +203,8 @@ public:
     extern(D)
     final
     int opApply(scope iter_i_func!T dg) {
-        auto ngc_dg = assumeNothrowNoGC!(iter_i_func!T)(dg);
         foreach (i; 0..length) {
-            int result = ngc_dg(i, this[i]);
+            int result = iter_i_func_t!T(i, this[i], dg);
             if (result)
                 return result;
         }
@@ -211,9 +217,8 @@ public:
     extern(D)
     final
     int opApplyReverse(scope iter_i_func!T dg) {
-        auto ngc_dg = assumeNothrowNoGC!(iter_i_func!T)(dg);
         foreach (i; 0..length) {
-            int result = ngc_dg(i, this[i]);
+            int result = iter_i_func_t!T(i, this[i], dg);
             if (result)
                 return result;
         }

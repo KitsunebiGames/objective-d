@@ -1,13 +1,9 @@
-/*
-    Copyright © 2024, Kitsunebi Games EMV
-    Distributed under the Boost Software License, Version 1.0, 
-    see LICENSE file.
-    
-    Authors: Luna Nielsen
-*/
-
 /**
-    Bindings to NSObject
+    NSObject
+
+    Copyright: Copyright © 2024-2025, Kitsunebi Games EMV
+    License:   $(LINK2 http://www.boost.org/LICENSE_1_0.txt, Boost License 1.0)
+    Authors:   Luna Nielsen
 */
 module foundation.nsobject;
 import foundation;
@@ -24,17 +20,23 @@ version(D_ObjectiveC):
 extern(Objective-C)
 extern class NSObject :  NSObjectProtocol {
 @nogc nothrow:
+protected:
+    
+    /**
+        Gets a pointer to the given ivar in the object.
+
+        Params:
+            name = Name of the ivar to get.
+        
+        Returns:
+            A pointer to said ivar or $(D null)
+            if an ivar with that name does not exist.
+    */
+    extern(D)
+    T getVariable(T)(const(char)* name) {
+        return self.getVariable!T(name);
+    }
 public:
-
-    /**
-        Returns the class object for the receiver’s class.
-    */
-    static Class class_() @selector("class");
-
-    /**
-        Returns the class object for the receiver’s superclass.
-    */
-    static Class superclass() @selector("superclass");
 
     /**
         Returns a Boolean value that indicates whether the receiving 
@@ -253,24 +255,27 @@ string classname(T)(T obj) if(is(T : NSObjectProtocol)) {
 /**
     Retains a single reference for `value` and returns it.
 */
-auto ref inout(T) retained(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
-    (cast(T)value).retain();
+auto retained(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
+    if (value !is null)
+        (cast(T)value).retain();
     return value;
 }
 
 /**
     Releases a single reference for `value` and returns it.
 */
-auto ref inout(T) released(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
-    (cast(T)value).release();
+auto released(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
+    if (value !is null)
+        (cast(T)value).release();
     return value;
 }
 
 /**
     Queues `value` up for an auto-release and returns it.
 */
-auto ref inout(T) autoreleased(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
-    (cast(T)value).autorelease();
+auto autoreleased(T)(auto ref inout(T) value) if (isObjcClassInstance!T) {
+    if (value !is null)
+        (cast(T)value).autorelease();
     return value;
 }
 

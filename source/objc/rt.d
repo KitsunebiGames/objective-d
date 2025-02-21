@@ -1,13 +1,9 @@
-/*
-    Copyright © 2024, Kitsunebi Games EMV
-    Distributed under the Boost Software License, Version 1.0, 
-    see LICENSE file.
-    
-    Authors: Luna Nielsen
-*/
-
 /**
-    Interface to the Objective-C Runtime.
+    Low-level Objective-C Runtime Interop
+
+    Copyright: Copyright © 2024-2025, Kitsunebi Games EMV
+    License:   $(LINK2 http://www.boost.org/LICENSE_1_0.txt, Boost License 1.0)
+    Authors:   Luna Nielsen
 */
 module objc.rt;
 import objc.block;
@@ -381,6 +377,32 @@ public:
     @system
     void dispose() {
         objc_disposeClassPair(this);
+    }
+
+    /// Debugging function.
+    debug
+    void dumpLayout() {
+        import core.stdc.stdio : printf;
+
+        printf("%s (size=%lu)\n", this.name, this.instanceSize);
+        dumpInstanceVars();
+    }
+
+    /// ditto
+    debug
+    void dumpInstanceVars() {
+        import core.stdc.stdio : printf;
+
+        if (superclass != this) {
+            superclass.dumpInstanceVars();
+        }
+
+        auto ivars = this.ivars;
+        foreach(ivar; ivars) {
+            printf("    %s %s @ %lu\n", ivar.type, ivar.name, ivar.offset);
+        }
+
+        free(ivars.ptr);
     }
 }
 
@@ -826,6 +848,26 @@ bool removeBlock(IMP imp) {
 */
 IMP fromBlock(BlockT)(BlockT block) if (is(BlockT == Block!(id, Params), Params...)) {
     return imp_implementationWithBlock(cast(void*)&block);
+}
+
+/**
+    Lists all class names within the specified image.
+
+    The array contents must be freed with `free()` after use.
+*/
+const(char)*[] listClassNamesFor(const(char)* imageName) @nogc nothrow {
+    uint count;
+    return objc_copyClassNamesForImage(imageName, &count)[0..count];
+}
+
+/**
+    Lists the images loaded by the Objective-C Runtime.
+
+    The array contents must be freed with `free()` after use.
+*/
+const(char)*[] listImages() {
+    uint count;
+    return objc_copyImageNames(&count)[0..count];
 }
 
 extern (C) @nogc nothrow:

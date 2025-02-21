@@ -1,13 +1,9 @@
-/*
-    Copyright © 2024, Kitsunebi Games EMV
-    Distributed under the Boost Software License, Version 1.0, 
-    see LICENSE file.
-    
-    Authors: Luna Nielsen
-*/
-
 /**
-    Bindings to NSBundle
+    NSBundle
+
+    Copyright: Copyright © 2024-2025, Kitsunebi Games EMV
+    License:   $(LINK2 http://www.boost.org/LICENSE_1_0.txt, Boost License 1.0)
+    Authors:   Luna Nielsen
 */
 module foundation.nsbundle;
 import foundation;
@@ -82,6 +78,11 @@ public:
         Returns an NSBundle object that corresponds to the specified file path.
     */
     @property static NSBundle fromPath(NSString url) @selector("bundleWithPath:");
+
+    /**
+        Returns the NSBundle instance that has the specified bundle identifier.
+    */
+    @property static NSBundle fromID(NSString id) @selector("bundleWithIdentifier:");
 
     /**
         The load status of a bundle.
