@@ -7,7 +7,6 @@
 */
 module foundation.nsobject;
 import foundation;
-import objc.basetypes;
 import objc;
 import core.attribute : selector, optional;
 

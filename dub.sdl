@@ -9,20 +9,20 @@ toolchainRequirements gdc="no"
 
 targetPath "out/"
 
-dependency "numem" version=">=1.0.1"
+dependency "numem" version=">=1.0.4"
 
 # Default configuration.
 configuration "static" {
     platforms "osx" "ios" "tvos" "watchos" "visionos"
     targetType "library"
-    lflags "-framework" "Foundation" "-all_load"
+    lflags "-framework" "Foundation" "-framework" "CoreFoundation" "-all_load"
 }
 
 configuration "unittest" {
     platforms "osx"
 
-    lflags "-framework" "Foundation" "-all_load"
-    dependency "silly" version="~>1.0"
+    lflags "-framework" "Foundation" "-framework" "CoreFoundation" "-all_load"
+    dependency "silly" version=">=1.1.1"
 }
 
 # For platforms that don't support it.

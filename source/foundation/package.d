@@ -9,6 +9,7 @@ module foundation;
 import objc;
 
 // Core Types
+public import foundation.core;
 public import foundation.nserror;
 public import foundation.nsobject;
 public import foundation.nscoder;
@@ -19,8 +20,6 @@ public import foundation.nsenumerator;
 public import foundation.nsdictionary;
 public import foundation.nsset;
 public import foundation.nsarray;
-
-// Text Handling
 public import foundation.nsstring;
 
 // Other

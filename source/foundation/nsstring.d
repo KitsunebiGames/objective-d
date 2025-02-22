@@ -6,6 +6,7 @@
     Authors:   Luna Nielsen
 */
 module foundation.nsstring;
+import corefoundation.cfstring;
 import foundation;
 import objc;
 
@@ -459,6 +460,9 @@ alias NSStringEnumerator = Block!(void, NSString, bool*);
 
 /**
     NSString
+
+    Bridged:
+        This type is bridged to $(D corefoundation.cfstring.CFStringRef)
 */
 extern(Objective-C)
 extern class NSString : NSObject, NSCopying, NSMutableCopying, NSSecureCoding {
@@ -651,6 +655,9 @@ public:
 
 /**
     A mutable string.
+
+    Bridged:
+        This type is bridged to $(D corefoundation.cfstring.CFMutableStringRef)
 */
 extern(Objective-C)
 extern class NSMutableString : NSString {

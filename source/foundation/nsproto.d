@@ -7,7 +7,6 @@
 */
 module foundation.nsproto;
 import foundation;
-import objc.basetypes;
 import objc.rt;
 
 import core.attribute : selector, optional;
