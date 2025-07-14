@@ -141,7 +141,7 @@ Block!(R, Params) block(R, Params...)(R delegate(Params) dg) {
         enum flags = 0x40000000;
 
     return Block!(R, Params)(
-        &_NSConcreteStackBlock, flags, &invoke!(R, Params), dg
+        &_NSConcreteStackBlock, flags, &invoke!(R, Params), cast(typeof(Block!(R, Params).dg))dg
     );
 }
 
