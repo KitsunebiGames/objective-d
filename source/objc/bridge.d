@@ -27,7 +27,7 @@ struct objd_bridge(Allowed...){
 */
 pragma(inline)
 To __bridge(To, From)(From from) @nogc @trusted pure {
-    static assert(objd_sym_bridgable!(To, From), From.stringof~" can't safely be bridged to "~To.stringof~"!");
+    static assert(objd_can_bridge!(To, From), From.stringof~" can't safely be bridged to "~To.stringof~"!");
 
     return *cast(To*)&from;
 }
@@ -44,7 +44,7 @@ To __bridge(To, From)(From from) @nogc @trusted pure {
 */
 pragma(inline)
 To __bridge_retained(To, From)(From from) @nogc @trusted pure if (is(To : NSObjectProtocol)) {
-    static assert(objd_sym_bridgable!(To, From), From.stringof~" can't safely be bridged to "~To.stringof~"!");
+    static assert(objd_can_bridge!(To, From), From.stringof~" can't safely be bridged to "~To.stringof~"!");
 
     return cast(To)CFBridgingRetain(*cast(From*)&from);
 }
@@ -61,7 +61,7 @@ To __bridge_retained(To, From)(From from) @nogc @trusted pure if (is(To : NSObje
 */
 pragma(inline)
 To __bridge_transfer(To, From)(From from) @nogc @trusted pure if (is(To : CFTypeRef)) {
-    static assert(objd_sym_bridgable!(To, From), From.stringof~" can't safely be bridged to "~To.stringof~"!");
+    static assert(objd_can_bridge!(To, From), From.stringof~" can't safely be bridged to "~To.stringof~"!");
 
     return cast(To)CFBridgingRelease(*cast(From*)&from);
 }
@@ -91,23 +91,23 @@ private:
 extern(C) extern void* CFBridgingRetain(void*);     // To CF
 extern(C) extern void* CFBridgingRelease(void*);    // From CF
 
-template objd_sym_bridgable(To, From) {
+template objd_can_bridge(To, From) {
     alias toUda = getUDAs!(To, objd_bridge);
     alias fromUda = getUDAs!(From, objd_bridge);
-
-    static if (toUda.length > 0) {
-        enum objd_sym_bridgable = 
-            anySatisfy!(objd_is_bridagable!To,      toUda[0].allowed) || 
-            anySatisfy!(objd_is_bridagable!From,    toUda[0].allowed);
-    } else static if (fromUda.length > 0) {
-        enum objd_sym_bridgable = 
-            anySatisfy!(objd_is_bridagable!To,      fromUda[0].allowed) || 
-            anySatisfy!(objd_is_bridagable!From,    fromUda[0].allowed);
-    } else enum objd_sym_bridgable = false;
-}
-
-template objd_is_bridagable(ToCheck) {
-    template objd_is_bridagable(T) {
-        enum objd_is_bridagable = is(T == ToCheck);
+    template __is_bridagable(ToCheck) {
+        template __is_bridagable(T) {
+            enum __is_bridagable = is(T == ToCheck);
+        }
     }
+
+    static foreach(uda; AliasSeq!(fromUda, toUda)) {
+        static if (
+                !is(typeof(objd_can_bridge) == bool) && 
+                (anySatisfy!(__is_bridagable!To, uda.allowed) || 
+                anySatisfy!(__is_bridagable!From, uda.allowed))
+        ) enum objd_can_bridge = true;
+    }
+
+    static if(!is(typeof(objd_can_bridge) == bool))
+        enum objd_can_bridge = false;
 }
