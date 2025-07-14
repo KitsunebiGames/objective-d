@@ -1,9 +1,10 @@
-# Objective-D
+# Objective D
 
-Objective-D provides essential bindings to Objective-C's Runtime API as well as as the
-Foundation framework.
+Type safe bindings to the Objective-C Runtime, Foundation and CoreFoundation for D.
 
-## NOTE
+## System Requirements
+This library is only available on Apple/Darwin derived operating systems currently.
+Eventually support may be added for non-apple systems.
 
-This relies on a D compiler which supports generating Objective-C compatible objects.
-Eg. DMD for x86_64 macs, or LDC with [This PR](https://github.com/ldc-developers/ldc/pull/4777).
+The library depends on Objective-C ABI support, and as such will only work on LDC 1.40+
+and DMD 2.111+.

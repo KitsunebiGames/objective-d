@@ -5,11 +5,11 @@ copyright "Copyright © 2024, Inochi2D Project"
 license "BSL-1.0"
 
 # Only LDC is supported currently.
-toolchainRequirements gdc="no"
+toolchainRequirements gdc="no" frontend=">=2.111" ldc=">=1.40.0"
 
 targetPath "out/"
 
-dependency "numem" version=">=1.0.4"
+dependency "numem" version=">=1.1.4"
 
 # Default configuration.
 configuration "static" {

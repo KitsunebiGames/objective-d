@@ -13,6 +13,6 @@ public import corefoundation.cfnull;
 public import corefoundation.cferror;
 
 // Basic containers
-public import foundation.cfdictionary;
-public import foundation.cfarray;
-public import foundation.cfstring;
+public import foundation.nsdictionary;
+public import foundation.nsarray;
+public import foundation.nsstring;

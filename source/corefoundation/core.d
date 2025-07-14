@@ -14,22 +14,22 @@ extern(C) @nogc nothrow:
 /**
     A type for unique, constant integer values that identify particular Core Foundation opaque types.
 */
-alias CFTypeID = uint;
+alias CFTypeID = size_t;
 
 /**
     CFOptionFlags
 */
-alias CFOptionFlags = uint;
+alias CFOptionFlags = size_t;
 
 /**
     A type for hash codes returned by the CFHash function.
 */
-alias CFHashCode = uint;
+alias CFHashCode = size_t;
 
 /**
     Priority values used for kAXPriorityKey
 */
-alias CFIndex = int;
+alias CFIndex = ptrdiff_t;
 
 /**
     Type used to represent elapsed time in seconds.
