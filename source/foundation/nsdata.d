@@ -19,6 +19,14 @@ version(D_ObjectiveC):
 */
 extern(Objective-C)
 extern class NSData : NSObject, NSCopying, NSMutableCopying, NSSecureCoding {
+@nogc:
+
+    /**
+        A Boolean value that indicates whether or not the class 
+        supports secure coding.
+    */
+    override
+    @property bool supportsSecureCoding();
 
     /**
         Length of the data in bytes.
@@ -34,6 +42,24 @@ extern class NSData : NSObject, NSCopying, NSMutableCopying, NSSecureCoding {
         and discontiguous data.
     */
     @property const(void)* bytes();
+
+    /**
+        Returns a new instance that’s a copy of the receiver.
+    */
+    override
+    id mutableCopyWithZone(NSZone* zone) @selector("mutableCopyWithZone:");
+
+    /**
+        Returns a new instance that’s a copy of the receiver.
+    */
+    override
+    id copyWithZone(NSZone* zone) @selector("copyWithZone:");
+    
+    /**
+        Encodes the receiver using a given archiver.
+    */
+    override
+    void encodeWithCoder(NSCoder coder) @selector("encodeWithCoder:");
 }
 
 /**
@@ -41,6 +67,7 @@ extern class NSData : NSObject, NSCopying, NSMutableCopying, NSSecureCoding {
 */
 extern(Objective-C)
 extern class NSMutableData : NSData {
+@nogc:
 
     /**
         Returns a pointer to a contiguous region of memory managed by the receiver.

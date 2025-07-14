@@ -7,7 +7,11 @@
 */
 module corefoundation.cfbundle;
 import corefoundation.cfallocator;
+import corefoundation.cfdictionary;
 import corefoundation.cfstring;
+import corefoundation.cfarray;
+import corefoundation.cferror;
+import corefoundation.cfurl;
 import corefoundation.core;
 import foundation.nsbundle;
 
@@ -17,7 +21,7 @@ extern(C) @nogc nothrow:
     A reference to a CFBundle object.
 */
 alias CFBundleRef = CFSubType!("CFBundle", NSBundle);
-alias CFPluginRef = CFBundleRef; /// ditto
+alias CFPlugInRef = CFBundleRef; /// ditto
 
 /**
     Bundle Reference Number
@@ -266,9 +270,9 @@ extern Boolean CFBundleLoadExecutable(CFBundleRef bundle);
 extern Boolean CFBundleIsExecutableLoaded(CFBundleRef bundle);
 extern void CFBundleUnloadExecutable(CFBundleRef bundle);
 extern void *CFBundleGetFunctionPointerForName(CFBundleRef bundle, CFStringRef functionName);
-extern void CFBundleGetFunctionPointersForNames(CFBundleRef bundle, CFArrayRef functionNames, void *ftbl[]);
+extern void CFBundleGetFunctionPointersForNames(CFBundleRef bundle, CFArrayRef functionNames, void** ftbl);
 extern void *CFBundleGetDataPointerForName(CFBundleRef bundle, CFStringRef symbolName);
-extern void CFBundleGetDataPointersForNames(CFBundleRef bundle, CFArrayRef symbolNames, void *stbl[]);
+extern void CFBundleGetDataPointersForNames(CFBundleRef bundle, CFArrayRef symbolNames, void** stbl);
 
 /**
     This function can be used to find executables other than your main
@@ -285,7 +289,7 @@ extern CFPlugInRef CFBundleGetPlugIn(CFBundleRef bundle);
 version(OSX) {
     extern Boolean CFBundleIsExecutableLoadable(CFBundleRef bundle);
     extern Boolean CFBundleIsExecutableLoadableForURL(CFURLRef url);
-    extern Boolean CFBundleIsArchitectureLoadable(cpu_type_t arch);
+    // extern Boolean CFBundleIsArchitectureLoadable(cpu_type_t arch);
 
     /**
         This function opens the non-localized and the localized resource files

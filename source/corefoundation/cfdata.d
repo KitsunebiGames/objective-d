@@ -6,6 +6,7 @@
     Authors:   Luna Nielsen
 */
 module corefoundation.cfdata;
+import corefoundation.cfallocator;
 import corefoundation.core;
 import foundation.nsdata;
 
