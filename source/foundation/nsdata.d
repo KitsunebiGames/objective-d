@@ -22,6 +22,11 @@ extern class NSData : NSObject, NSCopying, NSMutableCopying, NSSecureCoding {
 @nogc:
 
     /**
+        Creates an NSData Instance
+    */
+    static NSData create(void* bytes, NSUInteger length) @selector("dataWithBytes:length:");
+
+    /**
         A Boolean value that indicates whether or not the class 
         supports secure coding.
     */

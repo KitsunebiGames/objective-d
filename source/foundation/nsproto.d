@@ -25,12 +25,22 @@ public:
     /**
         Returns the class object for the receiver’s class.
     */
-    @property Class class_() @selector("class");
+    static @property Class class_() @selector("class");
+
+    /**
+        Returns the class object for the receiver’s class.
+    */
+    static @property Class superclass() @selector("superclass");
+
+    /**
+        Returns the class object for the receiver’s class.
+    */
+    @property Class selfClass() @selector("class");
 
     /**
         Returns the class object for the receiver’s superclass.
     */
-    @property Class superclass() @selector("superclass");
+    @property Class selfSuperclass() @selector("superclass");
 
     /**
         Returns a Boolean value that indicates whether the receiver 

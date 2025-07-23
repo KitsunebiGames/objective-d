@@ -4,6 +4,7 @@ dub.selections.json
 
 # Auto-generated docs
 docs/
+__dummy_docs/
 
 # Output directory.
 out/

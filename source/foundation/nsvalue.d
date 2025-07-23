@@ -74,6 +74,61 @@ public:
     override NSNumber init() @selector("init");
 
     /**
+        Creates a NSNumber instance with a bool value.
+    */
+    static NSNumber create(bool value) @selector("numberWithBool:");
+
+    /**
+        Creates a NSNumber instance with a double value.
+    */
+    static NSNumber create(double value) @selector("numberWithDouble:");
+
+    /**
+        Creates a NSNumber instance with a float value.
+    */
+    static NSNumber create(float value) @selector("numberWithFloat:");
+
+    /**
+        Creates a NSNumber instance with a byte value.
+    */
+    static NSNumber create(byte value) @selector("numberWithChar:");
+
+    /**
+        Creates a NSNumber instance with a short value.
+    */
+    static NSNumber create(short value) @selector("numberWithShort:");
+
+    /**
+        Creates a NSNumber instance with a int value.
+    */
+    static NSNumber create(int value) @selector("numberWithInt:");
+
+    /**
+        Creates a NSNumber instance with a long value.
+    */
+    static NSNumber create(long value) @selector("numberWithLongLong:");
+
+    /**
+        Creates a NSNumber instance with a ubyte value.
+    */
+    static NSNumber create(ubyte value) @selector("numberWithUnsignedChar:");
+
+    /**
+        Creates a NSNumber instance with a ushort value.
+    */
+    static NSNumber create(ushort value) @selector("numberWithUnsignedShort:");
+
+    /**
+        Creates a NSNumber instance with a uint value.
+    */
+    static NSNumber create(uint value) @selector("numberWithUnsignedInt:");
+
+    /**
+        Creates a NSNumber instance with a ulong value.
+    */
+    static NSNumber create(ulong value) @selector("numberWithUnsignedLongLong:");
+
+    /**
         The number object's value expressed as a Boolean value.
     */
     @property bool boolValue() const @selector("boolValue");
@@ -146,62 +201,62 @@ public:
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(bool value) @selector("initWithBool:");
+    NSNumber initWith(bool value) @selector("initWithBool:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(char value) @selector("initWithChar:");
+    NSNumber initWith(char value) @selector("initWithChar:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(double value) @selector("initWithDouble:");
+    NSNumber initWith(double value) @selector("initWithDouble:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(float value) @selector("initWithFloat:");
+    NSNumber initWith(float value) @selector("initWithFloat:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(float value) @selector("initWithFloat:");
+    NSNumber initWith(float value) @selector("initWithFloat:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(int value) @selector("initWithInt:");
+    NSNumber initWith(int value) @selector("initWithInt:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(short value) @selector("initWithShort:");
+    NSNumber initWith(short value) @selector("initWithShort:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(NSInteger value) @selector("initWithInteger:");
+    NSNumber initWith(NSInteger value) @selector("initWithInteger:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(ubyte value) @selector("initWithUnsignedChar:");
+    NSNumber initWith(ubyte value) @selector("initWithUnsignedChar:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(ushort value) @selector("initWithUnsignedShort:");
+    NSNumber initWith(ushort value) @selector("initWithUnsignedShort:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(uint value) @selector("initWithUnsignedInt:");
+    NSNumber initWith(uint value) @selector("initWithUnsignedInt:");
 
     /**
         Creates and returns an NSNumber object containing a given value.
     */
-    this(NSUInteger value) @selector("initWithUnsignedInteger:");
+    NSNumber initWith(NSUInteger value) @selector("initWithUnsignedInteger:");
 
     /**
         Gets whether this number is equal to another.

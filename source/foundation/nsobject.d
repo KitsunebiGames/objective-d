@@ -84,16 +84,6 @@ public:
     bool isEqual(inout(NSObject) obj) inout @selector("isEqual:");
 
     /**
-        Returns the class object for the receiver’s class.
-    */
-    Class class_() @selector("class");
-
-    /**
-        Returns the class object for the receiver’s superclass.
-    */
-    Class superclass() @selector("superclass");
-
-    /**
         Returns a Boolean value that indicates whether the receiver 
         is an instance of given class or an instance of any class that 
         inherits from that class.
@@ -122,6 +112,26 @@ public:
         Returns an integer that can be used as a table address in a hash table structure.
     */
     @property NSUInteger hash() @selector("hash");
+
+    /**
+        Returns the class object for the receiver’s class.
+    */
+    static @property Class class_() @selector("class");
+
+    /**
+        Returns the class object for the receiver’s class.
+    */
+    static @property Class superclass() @selector("superclass");
+
+    /**
+        Returns the class object for the receiver’s class.
+    */
+    @property Class selfClass() @selector("class");
+
+    /**
+        Returns the class object for the receiver’s superclass.
+    */
+    @property Class selfSuperclass() @selector("superclass");
 
     /**
         Returns the receiver.

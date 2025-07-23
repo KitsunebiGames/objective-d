@@ -9,7 +9,7 @@ toolchainRequirements gdc="no" frontend=">=2.111" ldc=">=1.40.0"
 
 targetPath "out/"
 
-dependency "numem" version=">=1.1.4"
+dependency "numem" version=">=1.2.2"
 
 # Default configuration.
 configuration "static" {
@@ -22,6 +22,7 @@ configuration "unittest" {
     platforms "osx"
 
     lflags "-framework" "Foundation" "-framework" "CoreFoundation" "-all_load"
+    
     dependency "silly" version=">=1.1.1"
     dependency "numem:hookset-libc" version="*"
 }

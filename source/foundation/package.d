@@ -8,10 +8,17 @@
 module foundation;
 import objc;
 
+// Helpers
+public import foundation.interop;
+public import objc.bridge;
+public import objc.block;
+
 // Core Types
 public import foundation.core;
 public import foundation.nserror;
 public import foundation.nsobject;
+public import foundation.nsstring;
+public import foundation.nsvalue;
 public import foundation.nscoder;
 public import foundation.nszone;
 
@@ -20,10 +27,8 @@ public import foundation.nsenumerator;
 public import foundation.nsdictionary;
 public import foundation.nsset;
 public import foundation.nsarray;
-public import foundation.nsstring;
 
 // Other
-public import foundation.nsvalue;
 public import foundation.nsbundle;
 public import foundation.nsurl;
 
