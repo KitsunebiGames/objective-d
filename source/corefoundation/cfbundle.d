@@ -164,9 +164,9 @@ extern CFStringRef CFBundleCopyLocalizedString(CFBundleRef bundle, CFStringRef k
     
     Params:
         bundle =        The bundle to examine.
-        key:            The key for the localized string to retrieve.
-        value:          A default value to return if no value exists for $(D key).
-        tableName:      The name of the strings file to search.
+        key =           The key for the localized string to retrieve.
+        value =         A default value to return if no value exists for $(D key).
+        tableName =     The name of the strings file to search.
         localizations = An array of BCP 47 language codes corresponding to available localizations.
                         Bundle compares the array against its available localizations, and uses the best 
                         result to retrieve the localized string. 

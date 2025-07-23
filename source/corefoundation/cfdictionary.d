@@ -151,12 +151,6 @@ extern const __gshared CFDictionaryValueCallBacks kCFTypeDictionaryValueCallBack
 /**
 	Type of the callback function used by the apply functions of
     CFDictionaries.
-    
-    Params:
-        key =       The current key for the value.
-        value =     The current value from the dictionary.
-        context =   The user-defined context parameter given to the apply
-                    function.
 */
 alias CFDictionaryApplierFunction = void function(const(void)* key, const(void)* value, void* context);
 
@@ -291,7 +285,7 @@ extern CFDictionaryRef CFDictionaryCreateCopy(CFAllocatorRef allocator, CFDictio
         capacity =          A hint about the number of values that will be held
                             by the CFDictionary. Pass 0 for no hint. The implementation may
                             ignore this hint, or may use it to optimize various
-                            operations. A dictionary's actual capacity is only limited by 
+                            operations. (A dictionary's actual capacity is only limited by 
                             address space and available memory constraints). If this 
                             parameter is negative, the behavior is undefined.
 	    keyCallBacks =      A pointer to a CFDictionaryKeyCallBacks structure
@@ -366,7 +360,7 @@ extern CFMutableDictionaryRef CFDictionaryCreateMutable(CFAllocatorRef allocator
         capacity =  A hint about the number of values that will be held
                     by the CFDictionary. Pass 0 for no hint. The implementation may
                     ignore this hint, or may use it to optimize various
-                    operations. A dictionary's actual capacity is only limited by
+                    operations. (A dictionary's actual capacity is only limited by
                     address space and available memory constraints). 
                     This parameter must be greater than or equal
                     to the count of the dictionary which is to be copied, or the

@@ -3,6 +3,7 @@
 dub.selections.json
 
 # Auto-generated docs
+docs.json
 docs/
 __dummy_docs/
 

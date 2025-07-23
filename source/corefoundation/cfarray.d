@@ -190,7 +190,7 @@ extern CFArrayRef CFArrayCreateCopy(CFAllocatorRef allocator, CFArrayRef theArra
 		capacity =  A hint about the number of values that will be held
 					by the CFArray. Pass 0 for no hint. The implementation may
 					ignore this hint, or may use it to optimize various
-					operations. An array's actual capacity is only limited by
+					operations. (An array's actual capacity is only limited by
 					address space and available memory constraints). If this
 					parameter is negative, the behavior is undefined.
 		callBacks = A pointer to a CFArrayCallBacks structure
@@ -213,7 +213,7 @@ extern CFArrayRef CFArrayCreateCopy(CFAllocatorRef allocator, CFArrayRef theArra
 					of version 0 with all fields NULL had been passed in.
 					Otherwise, if any of the fields are not valid pointers to
 					functions of the correct type, or this parameter is not a
-					valid pointer to a  CFArrayCallBacks callbacks structure,
+					valid pointer to a CFArrayCallBacks callbacks structure,
 					the behavior is undefined. If any of the values put into the
 					array is not one understood by one of the callback functions
 					the behavior when that callback function is used is
@@ -236,7 +236,7 @@ extern CFMutableArrayRef CFArrayCreateMutable(CFAllocatorRef allocator, CFIndex 
 		capacity =  A hint about the number of values that will be held
 					by the CFArray. Pass 0 for no hint. The implementation may
 					ignore this hint, or may use it to optimize various
-					operations. An array's actual capacity is only limited by 
+					operations. (An array's actual capacity is only limited by 
 					address space and available memory constraints).
 					This parameter must be greater than or equal
 					to the count of the array which is to be copied, or the
@@ -465,13 +465,14 @@ extern CFIndex CFArrayGetLastIndexOfValue(CFArrayRef theArray, CFRange range, co
 						undefined.
 
     Returns:
-        The return value is either 1) the index of a value that
-		matched, if the target value matches one or more in the
-		range, 2) greater than or equal to the end point of the
-		range, if the value is greater than all the values in the
-		range, or 3) the index of the value greater than the target
-		value, if the value lies between two of (or less than all
-		of) the values in the range.
+        The return value is either
+			1. 	the index of a value that matched, if the target value 
+			   	matches one or more in the range,
+			2. 	greater than or equal to the end point of the range, 
+				if the value is greater than all the values in the range, or
+			3.	the index of the value greater than the target value, 
+				if the value lies between two of (or less than all of) the 
+				values in the range.
 */
 extern CFIndex CFArrayBSearchValues(CFArrayRef theArray, CFRange range, const(void)* value, CFComparatorFunction comparator, void* context);
 

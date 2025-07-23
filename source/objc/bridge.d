@@ -37,7 +37,7 @@ To __bridge(To, From)(From from) @nogc @trusted pure {
     to CoreFoundation.
 
     Params:
-        A Objective-C class which can be bridge-cast to $(D To).
+        from = A Objective-C class which can be bridge-cast to $(D To).
 
     Returns:
         CoreFoundation object with the CF refcount increased by 1.
@@ -54,7 +54,7 @@ To __bridge_retained(To, From)(From from) @nogc @trusted pure if (is(To : NSObje
     to Foundation.
 
     Params:
-        A CFType which can be bridge-cast to $(D To).
+        from = A CFType which can be bridge-cast to $(D To).
 
     Returns:
         Foundation object with the CF refcount decreased by 1.
