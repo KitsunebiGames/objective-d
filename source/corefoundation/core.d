@@ -110,7 +110,10 @@ alias OSStatus          = UInt32;
 alias UTF32Char         = dchar;
 alias UTF16Char         = wchar;
 alias UTF8Char          = char;
-alias OSType            = uint;
+alias LangCode          = ushort;
+alias RegionCode        = ushort;
+alias FourCharCode      = uint;
+alias OSType            = FourCharCode;
 
 extern(C) @nogc nothrow:
 
