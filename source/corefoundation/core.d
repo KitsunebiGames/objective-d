@@ -7,6 +7,7 @@
 */
 module corefoundation.core;
 import numem.core.types;
+public import objc.basetypes;
 public import objc.bridge : objd_bridge;
 
 extern(C) @nogc nothrow:
@@ -89,32 +90,6 @@ struct CFRange {
     CFIndex location;
 }
 
-// Declaration of base types.
-alias Boolean           = bool;
-alias UInt8             = ubyte;
-alias SInt8             = byte;
-alias UInt16            = ushort;
-alias SInt16            = short;
-alias UInt32            = uint;
-alias SInt32            = int;
-alias UInt64            = ulong;
-alias SInt64            = long;
-alias Int               = ptrdiff_t;
-alias UInt              = size_t;
-alias UniChar           = wchar;
-alias StringPtr         = const(char)*;
-alias Str255            = const(char)[255];
-alias ConstStr255Param  = const(char)*;
-alias OSErr             = UInt16;
-alias OSStatus          = UInt32;
-alias UTF32Char         = dchar;
-alias UTF16Char         = wchar;
-alias UTF8Char          = char;
-alias LangCode          = ushort;
-alias RegionCode        = ushort;
-alias FourCharCode      = uint;
-alias OSType            = FourCharCode;
-
 extern(C) @nogc nothrow:
 
 /**
@@ -191,8 +166,8 @@ extern CFTypeID CFGetTypeID(CFTypeRef cfObject);
     Generic CoreFoundation reference, essentially equivalent to
     NSObject
 */
-alias CFTypeRef = __CFType*;
 struct __CFType; /// ditto
+alias CFTypeRef = __CFType*;
 
 /**
     Defines a CFTypeRef subtype; said subtype can be cast down to
@@ -206,6 +181,6 @@ template CFSubType(string name, AllowedBridge...) {
     import objc.bridge : objd_bridge;
 
     @objd_bridge!(AllowedBridge)
-    struct __CFSubType(string name) { alias self this; __CFType* self; }
-    alias CFSubType = __CFSubType!name;
+    struct __CFSubType(string name) { alias isa this; __CFType* isa; }
+    alias CFSubType = __CFSubType!(name)*;
 }

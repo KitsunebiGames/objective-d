@@ -113,10 +113,11 @@ public:
     /**
         Adds a given key-value pair to the dictionary.
     */
-    void opIndexAssign(Value value, Key key) {
+    final
+    extern(D) void opIndexAssign(Value value, inout(Key) key) {
         static if (is(Key : NSString))
-            this.message!void("setValue:forKey:", value, key);
+            self.send!void("setValue:forKey:", value, key);
         else
-            this.message!void("setObject:forKey:", value, key);
+            self.send!void("setObject:forKey:", value, key);
     }
 }
